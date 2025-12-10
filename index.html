@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Project Intake | MAB AI Strategies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4A6;
+            --teal: #2EB8C6;
+            --teal-light: #E6F7F9;
+            --dark: #0F1A2F;
+            --dark-light: #1A2940;
+            --gray: #6B7280;
+            --gray-light: #F3F4F6;
+            --white: #FFFFFF;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+
+        /* --- NEW HERO BANNER STYLES --- */
+        .hero-banner {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 500px;
+            background: radial-gradient(circle at center, #0a2e52 0%, #020b1f 60%, #000000 100%);
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+
+        /* Golden glow effect behind the text */
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Top glowing border strip */
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--gold), var(--teal));
+            box-shadow: 0 0 25px var(--teal);
+            z-index: 3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Removed .hero-logo-integrated styles as the broken image is removed */
+
+        /* Text Typography */
+        .hero-sub-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--teal);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-main-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            /* Metallic gold gradient text effect */
+            background: linear-gradient(to bottom, #ffe680 20%, #cc9f2a 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.7));
+        }
+
+        .hero-tagline-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.95;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+        }
+
+        /* Responsive adjustments for the banner */
+        @media (max-width: 600px) {
+            .hero-banner {
+                min-height: 400px;
+                border-radius: 0 0 20px 20px;
+            }
+            .hero-main-title {
+                font-size: 2.5rem;
+            }
+            .hero-tagline-text {
+                font-size: 1.1rem;
+            }
+            .hero-sub-title {
+                font-size: 0.85rem;
+                letter-spacing: 2px;
+            }
+        }
+        /* --- END NEW HERO BANNER STYLES --- */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 20px 20px; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Progress */
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .progress-dot.completed {
+            background: var(--teal);
+        }
+
+        /* Main Card */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-step {
+            display: inline-block;
+            background: var(--teal-light);
+            color: var(--teal);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .page-desc {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: var(--error);
+        }
+
+        /* Inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px var(--teal-light);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Color Picker Group */
+        .color-picker-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-picker-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .color-picker-item label {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .color-input-wrapper:focus-within {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px var(--teal-light);
+        }
+
+        .color-input-wrapper input[type="color"] {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .color-input-wrapper input[type="text"] {
+            flex: 1;
+            border: none;
+            padding: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .color-input-wrapper input[type="text"]:focus {
+            box-shadow: none;
+        }
+
+        /* Option Cards */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .options-grid.three-col {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .option-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            border: 2px solid var(--gray-light);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .option-card:hover .option-label {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .option-card input:checked + .option-label {
+            border-color: var(--teal);
+            background: var(--teal-light);
+            box-shadow: 0 4px 12px rgba(46, 184, 198, 0.2);
+        }
+
+        .option-icon {
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-light);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .option-card input:checked + .option-label .option-icon {
+            background: var(--teal);
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .option-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        /* Tooltip */
+        .tooltip-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            background: var(--gray);
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            font-style: italic;
+            cursor: help;
+            position: relative;
+        }
+
+        .tooltip-icon::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 400;
+            width: 220px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 100;
+            line-height: 1.4;
+        }
+
+        .tooltip-icon:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .btn-back {
+            padding: 14px 28px;
+            border: 2px solid var(--gray-light);
+            background: var(--white);
+            color: var(--gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            border-color: var(--dark);
+            color: var(--dark);
+        }
+
+        .btn-next,
+        .btn-submit {
+            flex: 1;
+            padding: 14px 28px;
+            border: none;
+            background: linear-gradient(135deg, var(--gold), #C9A227);
+            color: var(--dark);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* AI Generate Button */
+        .ai-generate-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--teal), #1E9AA6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(46, 184, 198, 0.4);
+        }
+
+        .ai-generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-generate-btn .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Page */
+        .success-page {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .success-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Budget Input */
+        .budget-input-wrapper {
+            position: relative;
+        }
+
+        .budget-input-wrapper::before {
+            content: '$';
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .budget-input-wrapper input {
+            padding-left: 35px;
+        }
+
+        /* Dynamic Features */
+        .dynamic-features-container {
+            background: var(--gray-light);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .dynamic-features-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .dynamic-features-header h4 {
+            font-size: 0.95rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, var(--teal), #1E9AA6);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .regenerate-btn {
+            background: none;
+            border: 2px solid var(--teal);
+            color: var(--teal);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .regenerate-btn:hover {
+            background: var(--teal);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 26, 47, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--gold), #C9A227);
+            color: var(--dark);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .modal-secondary-btn {
+            display: block;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-secondary-btn:hover {
+            color: var(--teal);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .form-card {
+                padding: 25px;
+                border-radius: 20px;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn-back {
+                order: 2;
+            }
+
+            .color-picker-group {
+                flex-direction: column;
+            }
+            
+            .container {
+                 padding: 0 10px 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero-banner">
+            <div class="hero-content">
+                <div class="hero-text-block">
+                    <h2 class="hero-sub-title">Custom Website Form</h2>
+                    <h1 class="hero-main-title">MAB AI Strategies</h1>
+                    <p class="hero-tagline-text">Innovate. Accelerate. Elevate.</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-dot active" id="dot-1"></div>
+            <div class="progress-dot" id="dot-2"></div>
+            <div class="progress-dot" id="dot-3"></div>
+            <div class="progress-dot" id="dot-4"></div>
+            <div class="progress-dot" id="dot-5"></div>
+            <div class="progress-dot" id="dot-6"></div>
+        </div>
+
+        <main>
+            <div class="form-card">
+                <div class="page active" id="page-1">
+                    <div class="page-header">
+                        <div class="page-step">Step 1 of 6</div>
+                        <h1 class="page-title">Let's Get Started</h1>
+                        <p class="page-desc">Tell us how to reach you</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company Name (Optional)</label>
+                        <input type="text" id="company" name="company" placeholder="Company Inc.">
+                    </div>
+
+                    <div class="buttons">
+                        <button class="btn-next" onclick="nextPage()">Next →</button>
+                    </div>
+                </div>
+
+                <div class="page" id="page-2">
+                    <div class="page-header">
+                        <div class="page-step">Step 2 of 6</div>
+                        <h1 class="page-title">Business Details</h1>
+                        <p class="page-desc">Help us understand your business</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="businessType">What type of business do you have? <span class="required">*</span></label>
+                        <select id="businessType" name="businessType" required>
+                            <option value="">Select your business type...</option>
+                            <option value="Startup">Startup / New Business</option>
+                            <option value="Small Business">Small Business (1-10 employees)</option>
+                            <option value="Medium Business">Medium Business (11-50 employees)</option>
+                            <option value="Enterprise">Enterprise (50+ employees)</option>
+                            <option value="Non-Profit">Non-Profit Organization</option>
+                            <option value="Personal">Personal / Individual</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry">Industry <span class="required">*</span></label>
+                        <input type="text" id="industry" name="industry" placeholder="e.g., Healthcare, Technology, Retail..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="existingWebsite">Do you have an existing website?</label>
+                        <input type="url" id="existingWebsite" name="existingWebsite" placeholder="https://yourwebsite.com (leave blank if none)">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Design Style</label>
+                        <div class="options-grid three-col">
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="designStyle" value="Modern & Minimal">
+                                <div class="option-label">
+                                    <div class="option-icon">✨</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Modern & Minimal</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="designStyle" value="Bold & Creative">
+                                <div class="option-label">
+                                    <div class="option-icon">🎨</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Bold & Creative</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="designStyle" value="Professional & Corporate">
+                                <div class="option-label">
+                                    <div class="option-icon">💼</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Professional</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="designStyle" value="Playful & Fun">
+                                <div class="option-label">
+                                    <div class="option-icon">🎉</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Playful & Fun</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="designStyle" value="Elegant & Luxury">
+                                <div class="option-label">
+                                    <div class="option-icon">👑</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Elegant & Luxury</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="designStyle" value="Not Sure">
+                                <div class="option-label">
+                                    <div class="option-icon">🤔</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Not Sure Yet</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Brand Colors (Optional)</label>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 12px;">Select your brand colors or leave defaults if undecided</p>
+                        <div class="color-picker-group">
+                            <div class="color-picker-item">
+                                <label>Primary Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="primaryColor" value="#2EB8C6" onchange="updateColorText('primaryColor', 'primaryColorText')">
+                                    <input type="text" id="primaryColorText" value="#2EB8C6" maxlength="7" oninput="updateColorPicker('primaryColorText', 'primaryColor')">
+                                </div>
+                            </div>
+                            <div class="color-picker-item">
+                                <label>Secondary Color</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="secondaryColor" value="#D4AF37" onchange="updateColorText('secondaryColor', 'secondaryColorText')">
+                                    <input type="text" id="secondaryColorText" value="#D4AF37" maxlength="7" oninput="updateColorPicker('secondaryColorText', 'secondaryColor')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="btn-back" onclick="prevPage()">← Back</button>
+                        <button class="btn-next" onclick="nextPage()">Next →</button>
+                    </div>
+                </div>
+
+                <div class="page" id="page-3">
+                    <div class="page-header">
+                        <div class="page-step">Step 3 of 6</div>
+                        <h1 class="page-title">Website Type</h1>
+                        <p class="page-desc">What kind of website do you need?</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select your website type <span class="required">*</span></label>
+                        <div class="options-grid">
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="websiteType" value="Business Website" required>
+                                <div class="option-label">
+                                    <div class="option-icon">🏢</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Business Website</div>
+                                        <div class="option-desc">Company site with services & info</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="websiteType" value="E-Commerce Store" required>
+                                <div class="option-label">
+                                    <div class="option-icon">🛒</div>
+                                    <div class="option-text">
+                                        <div class="option-title">E-Commerce Store</div>
+                                        <div class="option-desc">Sell products online</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="websiteType" value="Portfolio" required>
+                                <div class="option-label">
+                                    <div class="option-icon">🎨</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Portfolio</div>
+                                        <div class="option-desc">Showcase your work</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="websiteType" value="Landing Page" required>
+                                <div class="option-label">
+                                    <div class="option-icon">🚀</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Landing Page</div>
+                                        <div class="option-desc">Single page for campaigns</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="websiteType" value="Blog/Content Site" required>
+                                <div class="option-label">
+                                    <div class="option-icon">📝</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Blog / Content Site</div>
+                                        <div class="option-desc">Articles & content publishing</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this); showCustomAppModal()">
+                                <input type="radio" name="websiteType" value="Custom Application" required>
+                                <div class="option-label">
+                                    <div class="option-icon">⚙️</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Custom Application</div>
+                                        <div class="option-desc">Complex web app with custom features</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="websiteType" value="Other" required>
+                                <div class="option-label">
+                                    <div class="option-icon">💡</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Other</div>
+                                        <div class="option-desc">Something else in mind</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="otherWebsiteGroup" style="display: none;">
+                        <label for="otherWebsite">Please specify your website type <span class="required">*</span></label>
+                        <input type="text" id="otherWebsite" name="otherWebsite" placeholder="Describe the type of website you need...">
+                    </div>
+
+                    <div class="buttons">
+                        <button class="btn-back" onclick="prevPage()">← Back</button>
+                        <button class="btn-next" onclick="nextPage()">Next →</button>
+                    </div>
+                </div>
+
+                <div class="page" id="page-4">
+                    <div class="page-header">
+                        <div class="page-step">Step 4 of 6</div>
+                        <h1 class="page-title">Features & Functionality</h1>
+                        <p class="page-desc">Select the features you need</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Essential Features (check all that apply)</label>
+                        <div class="options-grid">
+                            <label class="option-card" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="features" value="Contact Forms">
+                                <div class="option-label">
+                                    <div class="option-icon">📧</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Contact Forms<span class="tooltip-icon" data-tooltip="Allow visitors to send messages and inquiries directly from your website" onclick="event.stopPropagation()">i</span></div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="features" value="Live Chat">
+                                <div class="option-label">
+                                    <div class="option-icon">💬</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Live Chat<span class="tooltip-icon" data-tooltip="Real-time chat widget for instant customer communication" onclick="event.stopPropagation()">i</span></div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="features" value="Booking System">
+                                <div class="option-label">
+                                    <div class="option-icon">📅</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Booking/Scheduling<span class="tooltip-icon" data-tooltip="Allow customers to book appointments or reserve services online" onclick="event.stopPropagation()">i</span></div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="features" value="Payment Processing">
+                                <div class="option-label">
+                                    <div class="option-icon">💳</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Payments<span class="tooltip-icon" data-tooltip="Accept credit cards, PayPal, and other payment methods online" onclick="event.stopPropagation()">i</span></div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="features" value="User Login">
+                                <div class="option-label">
+                                    <div class="option-icon">🔐</div>
+                                    <div class="option-text">
+                                        <div class="option-title">User Accounts<span class="tooltip-icon" data-tooltip="Allow users to create accounts and access personalized content" onclick="event.stopPropagation()">i</span></div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="features" value="Analytics">
+                                <div class="option-label">
+                                    <div class="option-icon">📊</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Analytics<span class="tooltip-icon" data-tooltip="Track visitor behavior and measure website performance" onclick="event.stopPropagation()">i</span></div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="dynamic-features-container" id="dynamicFeaturesContainer" style="display: none;">
+                        <div class="dynamic-features-header">
+                            <h4>✨ AI-Recommended Features <span class="ai-badge">AI</span></h4>
+                            <button class="regenerate-btn" onclick="generateDynamicFeatures()">↻ Regenerate</button>
+                        </div>
+                        <div class="options-grid" id="dynamicFeaturesGrid">
+                            </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="btn-back" onclick="prevPage()">← Back</button>
+                        <button class="btn-next" onclick="nextPage()">Next →</button>
+                    </div>
+                </div>
+
+                <div class="page" id="page-5">
+                    <div class="page-header">
+                        <div class="page-step">Step 5 of 6</div>
+                        <h1 class="page-title">Timeline & Budget</h1>
+                        <p class="page-desc">When do you need this completed?</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What's your timeline? <span class="required">*</span></label>
+                        <div class="options-grid">
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="timeline" value="ASAP (1-2 weeks)" required>
+                                <div class="option-label">
+                                    <div class="option-icon">⚡</div>
+                                    <div class="option-text">
+                                        <div class="option-title">ASAP (1-2 weeks)</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="timeline" value="Quick (2-4 weeks)" required>
+                                <div class="option-label">
+                                    <div class="option-icon">🚀</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Quick (2-4 weeks)</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="timeline" value="Flexible (4-8 weeks)" required>
+                                <div class="option-label">
+                                    <div class="option-icon">📅</div>
+                                    <div class="option-text">
+                                        <div class="option-title">Flexible (4-8 weeks)</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card" onclick="selectOption(this)">
+                                <input type="radio" name="timeline" value="No rush (8+ weeks)" required>
+                                <div class="option-label">
+                                    <div class="option-icon">🕐</div>
+                                    <div class="option-text">
+                                        <div class="option-title">No rush (8+ weeks)</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Estimated Budget (Optional)</label>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 12px;">This helps us tailor our recommendations to your investment level</p>
+                        <div class="budget-input-wrapper">
+                            <input type="number" id="budget" name="budget" placeholder="5000" min="0" step="100">
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="btn-back" onclick="prevPage()">← Back</button>
+                        <button class="btn-next" onclick="nextPage()">Next →</button>
+                    </div>
+                </div>
+
+                <div class="page" id="page-6">
+                    <div class="page-header">
+                        <div class="page-step">Step 6 of 6</div>
+                        <h1 class="page-title">Final Details</h1>
+                        <p class="page-desc">Any additional information that will help us understand your project better.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Additional Notes or Requirements (Optional)</label>
+                        <button class="ai-generate-btn" id="aiGenerateBtn" onclick="generateIdeas()">
+                            <span id="aiGenerateBtnText">✨ Generate Ideas with AI</span>
+                        </button>
+                        <textarea id="notes" name="notes" placeholder="Tell us anything else we should know about your project..."></textarea>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="btn-back" onclick="prevPage()">← Back</button>
+                        <button class="btn-submit" onclick="submitForm()">Submit Request →</button>
+                    </div>
+                </div>
+
+                <div class="page" id="success">
+                    <div class="success-page">
+                        <div class="success-icon">🎉</div>
+                        <h1 class="success-title">Request Submitted!</h1>
+                        <p class="success-text">
+                            Thank you for your submission! We've received your website request and will review it carefully.<br><br>
+                            Our team will reach out within 24 hours to discuss next steps and answer any questions you may have.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="customAppModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCustomAppModal()">×</button>
+            <div class="modal-icon">⚙️</div>
+            <h2 class="modal-title">Custom Application Project</h2>
+            <p class="modal-text">
+                Custom web applications require a more detailed discovery process to ensure we understand your unique requirements, integrations, and technical specifications.
+            </p>
+            <a href="https://mark-bockrath.com/custom-app-intake" class="modal-btn" target="_blank">
+                Start Custom App Form →
+            </a>
+            <span class="modal-secondary-btn" onclick="continueWithBasicForm()">
+                Continue with basic form instead
+            </span>
+        </div>
+    </div>
+
+<script>
+    // ========================================
+    // CONFIGURATION
+    // ========================================
+    const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25322742/ufiim7e/';
+    const CONTACT_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25322742/ufijhkp/';
+    const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // Replace with actual API key
+
+    // ========================================
+    // GLOBAL VARIABLES
+    // ========================================
+    let currentPage = 1;
+    const totalPages = 6;
+    let formData = {};
+    let dynamicFeaturesGenerated = false;
+
+    // ========================================
+    // COLOR PICKER FUNCTIONS
+    // ========================================
+    function updateColorText(colorInputId, textInputId) {
+        const colorInput = document.getElementById(colorInputId);
+        const textInput = document.getElementById(textInputId);
+        textInput.value = colorInput.value.toUpperCase();
+    }
+
+    function updateColorPicker(textInputId, colorInputId) {
+        const textInput = document.getElementById(textInputId);
+        const colorInput = document.getElementById(colorInputId);
+        let value = textInput.value;
+        if (!value.startsWith('#')) value = '#' + value;
+        if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+            colorInput.value = value;
+        }
+    }
+
+    // ========================================
+    // PAGE NAVIGATION
+    // ========================================
+    function nextPage() {
+        if (validateCurrentPage()) {
+            capturePageData();
+            
+            // Send contact info webhook on Page 1
+            if (currentPage === 1) {
+                sendContactWebhook();
+            }
+            
+            // Generate dynamic features when entering page 4
+            if (currentPage === 3 && !dynamicFeaturesGenerated) {
+                generateDynamicFeatures();
+            }
+            
+            if (currentPage < totalPages) {
+                document.getElementById(`page-${currentPage}`).classList.remove('active');
+                currentPage++;
+                document.getElementById(`page-${currentPage}`).classList.add('active');
+                updateProgress();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            currentPage--;
+            document.getElementById(`page-${currentPage}`).classList.add('active');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function updateProgress() {
+        for (let i = 1; i <= totalPages; i++) {
+            const dot = document.getElementById(`dot-${i}`);
+            dot.classList.remove('active', 'completed');
+            if (i < currentPage) {
+                dot.classList.add('completed');
+            } else if (i === currentPage) {
+                dot.classList.add('active');
+            }
+        }
+    }
+
+    // ========================================
+    // OPTION SELECTION
+    // ========================================
+    function selectOption(element) {
+        const parent = element.closest('.form-group') || element.closest('.options-grid').parentElement;
+        const cards = parent.querySelectorAll('.option-card');
+        cards.forEach(card => card.querySelector('input').checked = false);
+        element.querySelector('input').checked = true;
+
+        // Handle "Other" website type
+        const input = element.querySelector('input');
+        if (input.name === 'websiteType') {
+            const otherGroup = document.getElementById('otherWebsiteGroup');
+            otherGroup.style.display = input.value === 'Other' ? 'block' : 'none';
+        }
+    }
+
+    function toggleCheckbox(element) {
+        const checkbox = element.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+    }
+
+    // ========================================
+    // VALIDATION
+    // ========================================
+    function validateCurrentPage() {
+        const page = document.getElementById(`page-${currentPage}`);
+        const requiredInputs = page.querySelectorAll('input[required], select[required], textarea[required]');
+        let isValid = true;
+
+        requiredInputs.forEach(input => {
+            if (input.type === 'radio') {
+                const radioGroup = page.querySelectorAll(`input[name="${input.name}"]`);
+                const isChecked = Array.from(radioGroup).some(r => r.checked);
+                if (!isChecked) {
+                    isValid = false;
+                    highlightError(radioGroup[0].closest('.form-group'));
+                }
+            } else if (!input.value.trim()) {
+                isValid = false;
+                highlightError(input);
+            }
+        });
+
+        // Check "Other" field if selected
+        if (currentPage === 3) {
+            const websiteType = document.querySelector('input[name="websiteType"]:checked');
+            if (websiteType && websiteType.value === 'Other') {
+                const otherInput = document.getElementById('otherWebsite');
+                if (!otherInput.value.trim()) {
+                    isValid = false;
+                    highlightError(otherInput);
+                }
+            }
+        }
+
+        return isValid;
+    }
+
+    function highlightError(element) {
+        element.style.borderColor = 'var(--error)';
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            element.style.borderColor = '';
+        }, 3000);
+    }
+
+    // ========================================
+    // DATA CAPTURE
+    // ========================================
+    function capturePageData() {
+        const page = document.getElementById(`page-${currentPage}`);
+        
+        // Text inputs, emails, etc.
+        page.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="number"], textarea, select').forEach(input => {
+            if (input.value) {
+                formData[input.name || input.id] = input.value;
+            }
+        });
+
+        // Radio buttons
+        page.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+            formData[radio.name] = radio.value;
+        });
+
+        // Checkboxes
+        const checkboxGroups = {};
+        page.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+            if (!checkboxGroups[checkbox.name]) {
+                checkboxGroups[checkbox.name] = [];
+            }
+            checkboxGroups[checkbox.name].push(checkbox.value);
+        });
+        Object.keys(checkboxGroups).forEach(key => {
+            formData[key] = checkboxGroups[key].join(', ');
+        });
+
+        // Color pickers
+        if (currentPage === 2) {
+            formData.primaryColor = document.getElementById('primaryColorText').value;
+            formData.secondaryColor = document.getElementById('secondaryColorText').value;
+        }
+    }
+
+    // ========================================
+    // CONTACT WEBHOOK (Page 1)
+    // ========================================
+    async function sendContactWebhook() {
+        const contactData = {
+            fullName: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            company: document.getElementById('company').value || 'Not provided',
+            timestamp: new Date().toISOString(),
+            source: 'Website Intake Form - Page 1'
+        };
+
+        try {
+            await fetch(CONTACT_WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(contactData)
+            });
+            console.log('Contact info sent successfully');
+        } catch (error) {
+            console.error('Contact webhook error:', error);
+        }
+    }
+
+    // ========================================
+    // DYNAMIC FEATURES GENERATION
+    // ========================================
+    async function generateDynamicFeatures() {
+        const container = document.getElementById('dynamicFeaturesContainer');
+        const grid = document.getElementById('dynamicFeaturesGrid');
+        
+        container.style.display = 'block';
+        grid.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 20px;">✨ Generating personalized recommendations...</p>';
+
+        // Get context from previous answers
+        const websiteType = formData.websiteType || 'Business Website';
+        const industry = formData.industry || 'General';
+        const businessType = formData.businessType || 'Small Business';
+        const designStyle = formData.designStyle || 'Modern';
+
+        // Predefined feature recommendations based on context
+        const featureRecommendations = getFeatureRecommendations(websiteType, industry, businessType);
+        
+        // Simulate AI delay for UX
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        grid.innerHTML = featureRecommendations.map((feature, index) => `
+            <label class="option-card" onclick="toggleCheckbox(this)">
+                <input type="checkbox" name="dynamicFeatures" value="${feature.name}">
+                <div class="option-label">
+                    <div class="option-icon">${feature.icon}</div>
+                    <div class="option-text">
+                        <div class="option-title">${feature.name}<span class="tooltip-icon" data-tooltip="${feature.tooltip}" onclick="event.stopPropagation()">i</span></div>
+                    </div>
+                </div>
+            </label>
+        `).join('');
+        
+        dynamicFeaturesGenerated = true;
+    }
+
+    function getFeatureRecommendations(websiteType, industry, businessType) {
+        const baseFeatures = {
+            'E-Commerce Store': [
+                { icon: '🛍️', name: 'Product Catalog', tooltip: 'Organized product listings with categories and filters' },
+                { icon: '🔍', name: 'Advanced Search', tooltip: 'Help customers find products quickly' },
+                { icon: '⭐', name: 'Reviews & Ratings', tooltip: 'Customer reviews to build trust' },
+                { icon: '📦', name: 'Inventory Management', tooltip: 'Track stock levels automatically' },
+                { icon: '🎁', name: 'Promo Codes', tooltip: 'Discount and coupon functionality' },
+                { icon: '📧', name: 'Abandoned Cart Emails', tooltip: 'Recover lost sales automatically' }
+            ],
+            'Business Website': [
+                { icon: '📍', name: 'Google Maps Integration', tooltip: 'Show your location with interactive maps' },
+                { icon: '📰', name: 'News/Blog Section', tooltip: 'Share updates and improve SEO' },
+                { icon: '👥', name: 'Team Directory', tooltip: 'Showcase your team members' },
+                { icon: '🏆', name: 'Testimonials', tooltip: 'Display customer reviews and success stories' },
+                { icon: '📋', name: 'FAQ Section', tooltip: 'Answer common questions' },
+                { icon: '📱', name: 'Social Media Integration', tooltip: 'Connect your social profiles' }
+            ],
+            'Portfolio': [
+                { icon: '🖼️', name: 'Image Gallery', tooltip: 'Showcase work with beautiful galleries' },
+                { icon: '🎬', name: 'Video Embeds', tooltip: 'Display video content' },
+                { icon: '📂', name: 'Project Categories', tooltip: 'Organize work by type' },
+                { icon: '💼', name: 'Case Studies', tooltip: 'Detailed project breakdowns' },
+                { icon: '📄', name: 'Resume/CV Download', tooltip: 'Let visitors download your credentials' },
+                { icon: '🔗', name: 'Social Proof Links', tooltip: 'Link to published work' }
+            ],
+            'Landing Page': [
+                { icon: '🎯', name: 'A/B Testing Ready', tooltip: 'Test different versions for conversion' },
+                { icon: '⏱️', name: 'Countdown Timer', tooltip: 'Create urgency for offers' },
+                { icon: '📹', name: 'Hero Video', tooltip: 'Engaging video background' },
+                { icon: '✅', name: 'Multi-Step Form', tooltip: 'Capture leads progressively' },
+                { icon: '💬', name: 'Exit Intent Popup', tooltip: 'Capture leaving visitors' },
+                { icon: '🔒', name: 'Trust Badges', tooltip: 'Security and credibility indicators' }
+            ],
+            'Blog/Content Site': [
+                { icon: '🏷️', name: 'Tags & Categories', tooltip: 'Organize content effectively' },
+                { icon: '🔎', name: 'Content Search', tooltip: 'Help readers find articles' },
+                { icon: '📨', name: 'Newsletter Signup', tooltip: 'Build your email list' },
+                { icon: '💬', name: 'Comments System', tooltip: 'Engage with readers' },
+                { icon: '📊', name: 'Reading Time', tooltip: 'Show estimated read time' },
+                { icon: '🔗', name: 'Related Posts', tooltip: 'Keep readers engaged' }
+            ],
+            'Custom Application': [
+                { icon: '🔐', name: 'Role-Based Access', tooltip: 'Different permissions for user types' },
+                { icon: '📊', name: 'Dashboard & Reports', tooltip: 'Visual data displays' },
+                { icon: '🔄', name: 'API Integrations', tooltip: 'Connect with other services' },
+                { icon: '📱', name: 'Mobile App Sync', tooltip: 'Cross-platform data sync' },
+                { icon: '🔔', name: 'Notifications System', tooltip: 'Email, SMS, or push alerts' },
+                { icon: '📁', name: 'File Management', tooltip: 'Upload and organize files' }
+            ]
+        };
+
+        return baseFeatures[websiteType] || baseFeatures['Business Website'];
+    }
+
+    // ========================================
+    // AI IDEA GENERATION
+    // ========================================
+    async function generateIdeas() {
+        const btn = document.getElementById('aiGenerateBtn');
+        const btnText = document.getElementById('aiGenerateBtnText');
+        const textarea = document.getElementById('notes');
+        
+        btn.disabled = true;
+        btnText.innerHTML = '<span class="spinner"></span> Generating...';
+
+        // Build context from form data
+        const context = {
+            websiteType: formData.websiteType || 'website',
+            industry: formData.industry || 'business',
+            businessType: formData.businessType || 'company',
+            features: formData.features || '',
+            designStyle: formData.designStyle || 'modern',
+            timeline: formData.timeline || 'flexible'
+        };
+
+        try {
+            // Call Gemini API
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `You are a web design consultant. Based on these project details, suggest 3-4 specific, actionable ideas for their ${context.websiteType} project:
+                            
+Industry: ${context.industry}
+Business Type: ${context.businessType}
+Selected Features: ${context.features}
+Design Style: ${context.designStyle}
+Timeline: ${context.timeline}
+
+Provide brief, practical suggestions that would make their website stand out. Format as a bulleted list. Keep total response under 150 words.`
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 200
+                    }
+                })
+            });
+
+            const data = await response.json();
+            const ideas = data.candidates?.[0]?.content?.parts?.[0]?.text || getFallbackIdeas(context);
+            
+            textarea.value = ideas;
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+
+        } catch (error) {
+            console.error('AI generation error:', error);
+            textarea.value = getFallbackIdeas(context);
+        }
+
+        btn.disabled = false;
+        btnText.innerHTML = '✨ Generate Ideas with AI';
+    }
+
+    function getFallbackIdeas(context) {
+        const ideas = {
+            'E-Commerce Store': `• Consider adding a "Shop the Look" feature for cross-selling\n• Implement customer wish lists for better engagement\n• Add size guides or product comparison tools\n• Use high-quality lifestyle photos alongside product shots`,
+            'Business Website': `• Add a client portal for enhanced service delivery\n• Include an interactive ROI calculator for your services\n• Feature video testimonials for stronger social proof\n• Create an industry resources section to establish authority`,
+            'Portfolio': `• Add process videos showing your creative workflow\n• Include client testimonial videos with each case study\n• Create an interactive timeline of your career highlights\n• Add a "Currently Working On" section for engagement`,
+            'Landing Page': `• Use micro-animations to guide attention to CTAs\n• Add social proof counters (customers served, projects completed)\n• Include a short explainer video above the fold\n• Implement sticky navigation with progress indicator`,
+            'default': `• Consider adding personalized user experiences\n• Implement chatbot for 24/7 customer support\n• Add interactive elements to increase engagement\n• Ensure mobile-first design for better reach`
+        };
+        return ideas[context.websiteType] || ideas['default'];
+    }
+
+    // ========================================
+    // CUSTOM APP MODAL
+    // ========================================
+    function showCustomAppModal() {
+        document.getElementById('customAppModal').classList.add('active');
+    }
+
+    function closeCustomAppModal() {
+        document.getElementById('customAppModal').classList.remove('active');
+        // Deselect Custom Application
+        const customAppRadio = document.querySelector('input[value="Custom Application"]');
+        if (customAppRadio) customAppRadio.checked = false;
+    }
+
+    function continueWithBasicForm() {
+        document.getElementById('customAppModal').classList.remove('active');
+        // Keep Custom Application selected and continue
+    }
+
+    // ========================================
+    // FORM SUBMISSION
+    // ========================================
+    async function submitForm() {
+        if (!validateCurrentPage()) return;
+        
+        capturePageData();
+        
+        // Add dynamic features to form data
+        const dynamicFeatures = [];
+        document.querySelectorAll('input[name="dynamicFeatures"]:checked').forEach(cb => {
+            dynamicFeatures.push(cb.value);
+        });
+        if (dynamicFeatures.length > 0) {
+            formData.dynamicFeatures = dynamicFeatures.join(', ');
+        }
+
+        // Add metadata
+        formData.submittedAt = new Date().toISOString();
+        formData.userAgent = navigator.userAgent;
+        formData.referrer = document.referrer || 'Direct';
+
+        try {
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            // Show success
+            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            document.getElementById('success').classList.add('active');
+            document.querySelector('.progress-container').style.display = 'none';
+            
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('There was an error submitting your request. Please try again.');
+        }
+    }
+
+    // ========================================
+    // INITIALIZE
+    // ========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        updateProgress();
+        
+        // Close modal on overlay click
+        document.getElementById('customAppModal').addEventListener('click', function(e) {
+            if (e.target === this) closeCustomAppModal();
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeCustomAppModal();
+        });
+    });
+</script>
+</body>
+</html>
