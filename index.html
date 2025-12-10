@@ -1237,7 +1237,7 @@
             <p class="modal-text">
                 Custom web applications require a more detailed discovery process to ensure we understand your unique requirements, integrations, and technical specifications.
             </p>
-            <a href="https://mark-bockrath.com/custom-app-intake" class="modal-btn" target="_blank">
+            <a href="#" id="customAppLink" class="modal-btn" onclick="redirectToWebAppForm()">
                 Start Custom App Form →
             </a>
             <span class="modal-secondary-btn" onclick="continueWithBasicForm()">
@@ -1250,9 +1250,12 @@
     // ========================================
     // CONFIGURATION
     // ========================================
-    const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25322742/ufiim7e/';
-    const CONTACT_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25322742/ufijhkp/';
-    const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // Replace with actual API key
+    const API_BASE_URL = window.location.origin;
+    const SUBMIT_URL = `${API_BASE_URL}/api/submit-website`;
+    const CONTACT_URL = `${API_BASE_URL}/api/submit-contact`;
+    const GENERATE_IDEAS_URL = `${API_BASE_URL}/api/generate-ideas`;
+    // Web App Form URL - update after deploying the custom-web-app-form
+    const WEB_APP_FORM_URL = 'https://custom-web-app-form.vercel.app';
 
     // ========================================
     // GLOBAL VARIABLES
@@ -1442,21 +1445,22 @@
             fullName: document.getElementById('fullName').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
-            company: document.getElementById('company').value || 'Not provided',
-            timestamp: new Date().toISOString(),
+            company: document.getElementById('company').value || '',
             source: 'Website Intake Form - Page 1'
         };
 
         try {
-            await fetch(CONTACT_WEBHOOK_URL, {
+            const response = await fetch(CONTACT_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(contactData)
             });
-            console.log('Contact info sent successfully');
+            if (response.ok) {
+                console.log('Contact info sent successfully');
+            }
         } catch (error) {
             console.error('Contact webhook error:', error);
+            // Don't block user flow if contact save fails
         }
     }
 
@@ -1559,7 +1563,7 @@
         const btn = document.getElementById('aiGenerateBtn');
         const btnText = document.getElementById('aiGenerateBtnText');
         const textarea = document.getElementById('notes');
-        
+
         btn.disabled = true;
         btnText.innerHTML = '<span class="spinner"></span> Generating...';
 
@@ -1574,34 +1578,15 @@
         };
 
         try {
-            // Call Gemini API
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            const response = await fetch(GENERATE_IDEAS_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: `You are a web design consultant. Based on these project details, suggest 3-4 specific, actionable ideas for their ${context.websiteType} project:
-                            
-Industry: ${context.industry}
-Business Type: ${context.businessType}
-Selected Features: ${context.features}
-Design Style: ${context.designStyle}
-Timeline: ${context.timeline}
-
-Provide brief, practical suggestions that would make their website stand out. Format as a bulleted list. Keep total response under 150 words.`
-                        }]
-                    }],
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 200
-                    }
-                })
+                body: JSON.stringify(context)
             });
 
             const data = await response.json();
-            const ideas = data.candidates?.[0]?.content?.parts?.[0]?.text || getFallbackIdeas(context);
-            
+            const ideas = data.ideas || getFallbackIdeas(context);
+
             textarea.value = ideas;
             textarea.style.height = 'auto';
             textarea.style.height = textarea.scrollHeight + 'px';
@@ -1645,14 +1630,36 @@ Provide brief, practical suggestions that would make their website stand out. Fo
         // Keep Custom Application selected and continue
     }
 
+    function redirectToWebAppForm() {
+        // Get contact info from form
+        const fullName = document.getElementById('fullName').value || '';
+        const email = document.getElementById('email').value || '';
+        const phone = document.getElementById('phone').value || '';
+        const company = document.getElementById('company').value || '';
+
+        // Build URL with parameters
+        const params = new URLSearchParams();
+        if (fullName) params.append('name', fullName);
+        if (email) params.append('email', email);
+        if (phone) params.append('phone', phone);
+        if (company) params.append('company', company);
+
+        // Redirect to web app form
+        const url = params.toString()
+            ? `${WEB_APP_FORM_URL}?${params.toString()}`
+            : WEB_APP_FORM_URL;
+
+        window.location.href = url;
+    }
+
     // ========================================
     // FORM SUBMISSION
     // ========================================
     async function submitForm() {
         if (!validateCurrentPage()) return;
-        
+
         capturePageData();
-        
+
         // Add dynamic features to form data
         const dynamicFeatures = [];
         document.querySelectorAll('input[name="dynamicFeatures"]:checked').forEach(cb => {
@@ -1667,22 +1674,33 @@ Provide brief, practical suggestions that would make their website stand out. Fo
         formData.userAgent = navigator.userAgent;
         formData.referrer = document.referrer || 'Direct';
 
+        // Show loading state
+        const submitBtn = document.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
         try {
-            await fetch(WEBHOOK_URL, {
+            const response = await fetch(SUBMIT_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
-            // Show success
-            document.getElementById(`page-${currentPage}`).classList.remove('active');
-            document.getElementById('success').classList.add('active');
-            document.querySelector('.progress-container').style.display = 'none';
-            
+            if (response.ok) {
+                // Show success
+                document.getElementById(`page-${currentPage}`).classList.remove('active');
+                document.getElementById('success').classList.add('active');
+                document.querySelector('.progress-container').style.display = 'none';
+            } else {
+                throw new Error('Submission failed');
+            }
+
         } catch (error) {
             console.error('Submission error:', error);
             alert('There was an error submitting your request. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
         }
     }
 

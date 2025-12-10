@@ -1,0 +1,19 @@
+{
+  "name": "custom-website-form",
+  "version": "1.0.0",
+  "description": "Website Project Intake Form with serverless functions",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "googleapis": "^134.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
