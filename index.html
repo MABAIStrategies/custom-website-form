@@ -1252,11 +1252,9 @@
     // ========================================
     const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby8N--CHqiaMGTkeLExwT0mcfhB2zfbvRAFX7u6qUrpp3WNDsgIYP56FHvMXWpgjZax/exec';
     const CONTACT_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/25322742/ufijhkp/';
-    const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // Replace with actual API key
 
     // ========================================
     // GLOBAL VARIABLES
-    // ========================================
     let currentPage = 1;
     const totalPages = 6;
     let formData = {};
@@ -1555,14 +1553,14 @@
     // ========================================
     // AI IDEA GENERATION
     // ========================================
-    async function generateIdeas() {
+async function generateIdeas() {
         const btn = document.getElementById('aiGenerateBtn');
         const btnText = document.getElementById('aiGenerateBtnText');
         const textarea = document.getElementById('notes');
         
         btn.disabled = true;
         btnText.innerHTML = '<span class="spinner"></span> Generating...';
-
+        
         // Build context from form data
         const context = {
             websiteType: formData.websiteType || 'website',
@@ -1572,44 +1570,34 @@
             designStyle: formData.designStyle || 'modern',
             timeline: formData.timeline || 'flexible'
         };
-
+        
         try {
-            // Call Gemini API
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            // Call serverless API endpoint
+            const response = await fetch('/api/generate-ideas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: `You are a web design consultant. Based on these project details, suggest 3-4 specific, actionable ideas for their ${context.websiteType} project:
-                            
-Industry: ${context.industry}
-Business Type: ${context.businessType}
-Selected Features: ${context.features}
-Design Style: ${context.designStyle}
-Timeline: ${context.timeline}
-
-Provide brief, practical suggestions that would make their website stand out. Format as a bulleted list. Keep total response under 150 words.`
-                        }]
-                    }],
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 200
-                    }
-                })
+                body: JSON.stringify({ context })
             });
-
+            
+            if (!response.ok) {
+                throw new Error('Failed to generate ideas');
+            }
+            
             const data = await response.json();
-            const ideas = data.candidates?.[0]?.content?.parts?.[0]?.text || getFallbackIdeas(context);
+            const ideas = data.ideas || 'No suggestions generated.';
             
             textarea.value = ideas;
             textarea.style.height = 'auto';
             textarea.style.height = textarea.scrollHeight + 'px';
-
+            
         } catch (error) {
             console.error('AI generation error:', error);
             textarea.value = getFallbackIdeas(context);
         }
+        
+        btn.disabled = false;
+        btnText.innerHTML = '✨ Generate Ideas with AI';
+    }
 
         btn.disabled = false;
         btnText.innerHTML = '✨ Generate Ideas with AI';
